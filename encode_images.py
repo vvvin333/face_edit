@@ -44,7 +44,7 @@ def main():
     # parser.add_argument('--load_last', default='', help='Start with embeddings from directory')
     parser.add_argument('--dlatent_avg', default='',
                         help='Use dlatent from file specified here for truncation instead of dlatent_avg from Gs')
-    parser.add_argument('--models', default='url',
+    parser.add_argument('--models', default='url', choices=['url', 'local'],
                         help='Fetch a StyleGAN to train on and perceptual models  from predefined url')
     parser.add_argument('--model_res', default=1024, help='The dimension of images in the StyleGAN model', type=int)
     parser.add_argument('--batch_size', default=1, help='Batch size for generator and perceptual model', type=int)

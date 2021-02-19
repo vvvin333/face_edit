@@ -13,7 +13,7 @@ I reconstructed stylegan`s work from several repositories for my images, combine
 I used conda (channels: conda-forge pytorch) for the packages:<br>
 tqdm <br>
 numpy <br>
-PIL <br>
+pillow <br>
 tensorflow==1.15.0 <br>
 tensorflow-gpu <br>
 keras <br>
@@ -31,7 +31,7 @@ python align_images.py raw_images/ aligned_images/
 ```
 python encode_images.py --optimizer=lbfgs --face_mask=True --iterations=10 --use_l1_penalty=0.2 --use_lpips_loss=0 --use_discriminator_loss=0
 ```
-4) edit photo in latent space with boundary: 
+4) edit photo in latent space with boundary (axis=pitch/yaw): 
 ```
-python move_images_in_latent_space.py -axis=yaw --number_interpolation_steps=15 --morph_strength=3
+python move_images_in_latent_space.py --axis=yaw --number_interpolation_steps=15 --morph_strength=3
 ```
