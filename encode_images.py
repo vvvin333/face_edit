@@ -155,7 +155,7 @@ def main():
                                   cache_dir=config.cache_dir) as f:
             generator_network, discriminator_network, Gs_network = pickle.load(f)
     else:
-        with open('models/karras2019stylegan-ffhq-1024x1024.pkl', 'rb') as f:
+        with open('models/pretrain/karras2019stylegan-ffhq-1024x1024.pkl', 'rb') as f:
             generator_network, discriminator_network, Gs_network = pickle.load(f)
 
     generator = Generator(Gs_network, args.batch_size, clipping_threshold=args.clipping_threshold,

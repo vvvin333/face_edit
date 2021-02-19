@@ -20,18 +20,26 @@ keras <br>
 dlib <br>
 opencv <br>
 imutils <br>
+torch <br>
 
 ## Instructions:
-1) (optional) [download pre-trained generator model](https://drive.google.com/uc?id=1MEGjdvVpUsu1jB4zrXZN7Y4kBBOzizDQ) and  [pre-trained perceptual model](https://drive.google.com/uc?id=1N2-m9qszOeVC9Tq77WxsLnuWwOedQiD2) to the models/ folder.
-2) (optional) for search face and align (one can then choose good enough images):
+1) (optional) [download pre-trained generator model](https://drive.google.com/uc?id=1MEGjdvVpUsu1jB4zrXZN7Y4kBBOzizDQ) and  [pre-trained perceptual model](https://drive.google.com/uc?id=1N2-m9qszOeVC9Tq77WxsLnuWwOedQiD2) to the models/pretrain folder.
+2) generate a face of person that does not exist:
+```
+python generate_data.py 
+```
+3) edit photo in latent space with boundary(direction): 
+```
+python move_images_in_latent_space.py --direction=yaw --number_interpolation_steps=15 --morph_strength=3
+```
+
+
+## Optional. Play with real photos:
+1) for search face and align from raw photos (one can then choose good enough images):
 ```
 python align_images.py raw_images/ aligned_images/
 ```
-3) (optional) encode photo to latent vector:
+2) encode real photo to latent vector:
 ```
 python encode_images.py --optimizer=lbfgs --face_mask=True --iterations=10 --use_l1_penalty=0.2 --use_lpips_loss=0 --use_discriminator_loss=0
-```
-4) edit photo in latent space with boundary (axis=pitch/yaw): 
-```
-python move_images_in_latent_space.py --axis=yaw --number_interpolation_steps=15 --morph_strength=3
 ```
