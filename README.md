@@ -1,7 +1,6 @@
 ## Face_turns
 Experiments with face turns along yaw and pitch axis with ## StyleGAN &mdash;
-I reconstructed stylegan`s work from several repositories for my images, combine them, tried to [find pitch_boundary](https://colab.research.google.com/drive/1xBtH-c1hmhoZ6X8KIpxyYB1li3x38ipE?usp=sharing)(for pitch-axis) from several photos with my 'by-eye' scores.
-Added move_images_in_latent_space.py script. 
+I reconstructed stylegan`s work from several repositories for my images, combine them, tried to [find pitch_boundary](https://colab.research.google.com/drive/1xBtH-c1hmhoZ6X8KIpxyYB1li3x38ipE?usp=sharing)(for pitch-axis) from several photos with my 'by-eye' scores. Added move_images_in_latent_space.py script. 
 
 ## Samples
 ...
