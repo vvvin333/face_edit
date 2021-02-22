@@ -4,7 +4,7 @@ I reconstructed stylegan`s work from several repositories for generated and real
 Added scripts for generating faces of persons that do not exist and interpolating with params in latent space. 
 
 ## Sample
-pose
+pose (yaw)
 ![Teaser image](./sample.jpeg)
 
 
