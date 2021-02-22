@@ -1,0 +1,11 @@
+conda: channels conda-forge pytorch
+tqdm
+numpy
+pillow
+tensorflow==1.15.0
+tensorflow-gpu
+keras
+dlib
+opencv
+imutils
+torch
