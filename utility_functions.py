@@ -37,7 +37,7 @@ def interpolate(latent_codes, boundary, coeff: float, generator, synthesis_kwarg
     return new_images
 
 
-def image_processing(images, col: int, viz_size=256):
+def image_processing(images, col: int, viz_size=1024):
     """
     processing images to one figure.
     :returns np.array(dtype=np.uint8) with RGB2BGR channels
