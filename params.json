@@ -1,7 +1,8 @@
 {
-    "age":0,
-    "eyeglasses": 0,
+    "age":2.2,
+    "eyeglasses": 1.5,
     "gender": 2,
     "pose": 2,
-    "smile": -1.5
+    "smile": -1.5,
+    "pitch":2
 }

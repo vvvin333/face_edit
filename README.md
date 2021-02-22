@@ -10,7 +10,7 @@ Added scripts for generating faces of persons that do not exist and manipulate w
 ## Requirements:
 ![Python 3.7](https://img.shields.io/badge/python-3.7-green.svg?style=plastic)
 ![pytorch 1.1.0](https://img.shields.io/badge/pytorch-1.1.0-green.svg?style=plastic)
-![TensorFlow 1.12.2](https://img.shields.io/badge/tensorflow-1.12.2-green.svg?style=plastic)
+![TensorFlow 1.15.0](https://img.shields.io/badge/tensorflow-1.15.0-green.svg?style=plastic)
 ![sklearn 0.21.2](https://img.shields.io/badge/sklearn-0.21.2-green.svg?style=plastic)
 I used conda (channels: conda-forge pytorch) for the packages:<br>
 tqdm <br>
@@ -35,7 +35,9 @@ python generate_photo.py --num_samples=4 --noise_seed=1 --resolution=1024
 ```
 3) edit faces in latent space with params (one can change each parameter in params.json within (-3, 3)): 
 ```
-python generate_photo_with_params.py --latent_file='latents/sample.npy' --params_file='params.json' --resolution=1024
+python manipulate_photo_with_params.py --latent_file='latents/sample.npy' --params_file='params.json' --resolution=1024
 ```
-
-
+4) generate linear interpolations in latent space with bound parameters from params.json
+```
+python linear_interpolations.py --latent_file='latents/sample.npy' --params_file='params.json' --num_steps=6  --resolution=1024 --show_interpolations=False
+```

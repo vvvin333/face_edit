@@ -34,7 +34,7 @@ def interpolate(latent_codes, boundary, coeff: float, generator, synthesis_kwarg
     new_codes = latent_codes.copy()
     new_codes += boundary * coeff
     new_images = generator.easy_synthesize(new_codes, **synthesis_kwargs)['image']
-    return new_images
+    return new_images, new_codes
 
 
 def image_processing(images, col: int, viz_size=1024):
@@ -85,8 +85,8 @@ def generate_sample(model_name="stylegan_ffhq", images_output_directory='generat
     return latent_codes, generator, synthesis_kwargs
 
 
-def manipulate_with_params(latent_input_file: str, directions, model_name="stylegan_ffhq",
-                           images_output_directory='generated_images', latent_space_type="W", resolution=1024):
+def manipulate_with_params(latent_input_file: str, directions, model_name='stylegan_ffhq',
+                           images_output_directory='generated_images', latent_space_type='W', resolution=1024):
     """
 
     :param resolution:
@@ -97,23 +97,8 @@ def manipulate_with_params(latent_input_file: str, directions, model_name="style
     :param latent_space_type:
     :return:
     """
-    generator = build_generator(model_name)
-    if generator.gan_type == 'stylegan' and latent_space_type.upper() == 'W':
-        synthesis_kwargs = {'latent_space_type': 'W'}
-    else:
-        synthesis_kwargs = {}
-
-    latent_codes = np.load(latent_input_file)
-    num_samples = latent_codes.shape[0]
-    print(num_samples, ' samples loaded')
-
-    boundaries = {}
-    for attr_name in directions.keys():
-        boundary_name = f'{model_name}_{attr_name}'
-        if generator.gan_type == 'stylegan' and latent_space_type == 'W':
-            boundaries[attr_name] = np.load(f'boundaries/{boundary_name}_w_boundary.npy')
-        else:
-            boundaries[attr_name] = np.load(f'boundaries/{boundary_name}_boundary.npy')
+    boundaries, generator, latent_codes, num_samples, synthesis_kwargs = \
+        interpolation_common_preload(latent_input_file, directions, latent_space_type, model_name)
 
     for attr_name, attr_value in directions.items():
         latent_codes += boundaries[attr_name] * attr_value
@@ -141,3 +126,76 @@ def generating_common_final(latent_codes, image_file_name, latent_file_name, gen
     cv2.imshow(image_file_name, images)
     cv2.waitKey()
     cv2.destroyAllWindows()
+
+
+def linear_interpolations(latent_input_file: str, directions, num_steps=10, model_name="stylegan_ffhq",
+                          images_output_directory='generated_images', latent_space_type="W", resolution=1024, show=True):
+
+    boundaries, generator, latent_codes, num_samples, synthesis_kwargs = \
+        interpolation_common_preload(latent_input_file, directions, latent_space_type, model_name)
+
+    channels = 3
+    images_batch = np.zeros((num_steps * resolution, num_samples * resolution, channels), dtype=np.uint8)
+    for attr_name, attr_value in directions.items():
+        if attr_value == 0:
+            continue
+
+        left_boundary = - abs(attr_value)
+        delta = abs(attr_value) * 2
+
+        output_directory = os.path.join(images_output_directory, attr_name)
+        if not os.path.exists(output_directory):
+            os.makedirs(output_directory)
+
+        for step in range(num_steps):
+            coeff = left_boundary + step * delta / num_steps
+            images, _ = interpolate(latent_codes, boundaries[attr_name], coeff, generator, synthesis_kwargs)
+            images = image_processing(images, num_samples, resolution)
+            file_name = os.path.join(output_directory, attr_name + '_' + str(step) + '.jpeg')
+            cv2.imwrite(file_name, images)
+            print(file_name, 'saved')
+            y = step * resolution
+            if images.shape[0] != resolution:
+                images = cv2.resize(images, (resolution*num_samples, resolution)) #(width, height)
+            images_batch[y:y+resolution, :] = np.asarray(images, dtype=np.uint8)
+
+        # images_batch = cv2.cvtColor(images_batch, cv2.COLOR_RGB2BGR)
+        file_name = os.path.join(output_directory, attr_name + '_' + 'interpolations.jpeg')
+        cv2.imwrite(file_name, images_batch)
+        print(file_name, 'saved')
+        if show:
+            cv2.imshow(file_name, images_batch)
+            cv2.waitKey()
+            cv2.destroyAllWindows()
+
+
+def interpolation_common_preload(latent_input_file, directions, latent_space_type='W', model_name='stylegan_ffhq'):
+    """
+
+    :param directions:
+    :param latent_input_file:
+    :param latent_space_type:
+    :param model_name:
+    :return:
+    """
+    generator = build_generator(model_name)
+    if generator.gan_type == 'stylegan' and latent_space_type.upper() == 'W':
+        synthesis_kwargs = {'latent_space_type': 'W'}
+    else:
+        synthesis_kwargs = {}
+
+    latent_codes = np.load(latent_input_file)
+    num_samples = latent_codes.shape[0]
+    print(num_samples, ' samples loaded')
+
+    boundaries = {}
+    for attr_name in directions:
+        boundary_name = f'{model_name}_{attr_name}'
+        if generator.gan_type == 'stylegan' and latent_space_type.upper() == 'W':
+            boundaries[attr_name] = np.load(f'boundaries/{boundary_name}_w_boundary.npy')
+        else:
+            boundaries[attr_name] = np.load(f'boundaries/{boundary_name}_boundary.npy')
+
+    return boundaries, generator, latent_codes, num_samples, synthesis_kwargs
+
+
