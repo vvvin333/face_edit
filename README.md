@@ -31,11 +31,11 @@ torch <br>
  to the models/pretrain folder.
 2) generate faces of persons (1-4 batch!) that do not exist:
 ```
-python generate_photo.py --num_samples=4 --noise_seed=1
+python generate_photo.py --num_samples=4 --noise_seed=1 --resolution=1024
 ```
 3) edit faces in latent space with params (one can change each parameter in params.json within (-3, 3)): 
 ```
-python generate_photo_with_params.py --latent_file='latents/sample.npy' --params_file='params.json'
+python generate_photo_with_params.py --latent_file='latents/sample.npy' --params_file='params.json' --resolution=1024
 ```
 
 

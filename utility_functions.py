@@ -37,7 +37,7 @@ def interpolate(latent_codes, boundary, coeff: float, generator, synthesis_kwarg
     return new_images
 
 
-def image_processing(images, col: int, viz_size=256):
+def image_processing(images, col: int, viz_size=1024):
     """
     processing images to one figure.
     :returns np.array(dtype=np.uint8) with RGB2BGR channels
@@ -59,9 +59,10 @@ def image_processing(images, col: int, viz_size=256):
 
 
 def generate_sample(model_name="stylegan_ffhq", images_output_directory='generated_images', latent_space_type="W",
-                    num_samples=1, noise_seed=111):
+                    num_samples=1, noise_seed=111, resolution=1024):
     """
 
+    :param resolution:
     :param model_name:
     :param images_output_directory:
     :param latent_space_type:
@@ -79,15 +80,16 @@ def generate_sample(model_name="stylegan_ffhq", images_output_directory='generat
     latent_file_name = 'sample.npy'
     image_file_name = 'base_.jpeg'
     generating_common_final(latent_codes, image_file_name, latent_file_name, generator, images_output_directory,
-                            num_samples, synthesis_kwargs)
+                            num_samples, resolution, synthesis_kwargs)
 
     return latent_codes, generator, synthesis_kwargs
 
 
 def manipulate_with_params(latent_input_file: str, directions, model_name="stylegan_ffhq",
-                           images_output_directory='generated_images', latent_space_type="W"):
+                           images_output_directory='generated_images', latent_space_type="W", resolution=1024):
     """
 
+    :param resolution:
     :param latent_input_file:
     :param directions:
     :param model_name:
@@ -119,19 +121,19 @@ def manipulate_with_params(latent_input_file: str, directions, model_name="style
     latent_file_name = 'sample_with_params.npy'
     image_file_name = 'sample_with_params.jpeg'
     generating_common_final(latent_codes, image_file_name, latent_file_name, generator, images_output_directory,
-                            num_samples, synthesis_kwargs)
+                            num_samples, resolution, synthesis_kwargs)
 
     return latent_codes, generator, synthesis_kwargs
 
 
 def generating_common_final(latent_codes, image_file_name, latent_file_name, generator, images_output_directory,
-                            num_samples, synthesis_kwargs):
+                            num_samples, resolution, synthesis_kwargs):
     file_name = os.path.join('latents', latent_file_name)
     np.save(file_name, latent_codes)
     print(file_name, 'saved')
 
     images = generator.easy_synthesize(latent_codes, **synthesis_kwargs)['image']
-    images = image_processing(images, num_samples)
+    images = image_processing(images, num_samples, resolution)
 
     file_name = os.path.join(images_output_directory, image_file_name)
     cv2.imwrite(file_name, images)

@@ -11,12 +11,14 @@ def parse_args():
     parser.add_argument('-t', '--latent_space_type', type=str, default='W', help='Type of latent vector (Z or W).')
     parser.add_argument('-n', '--num_samples', type=int, default=1, help='Number of photo samples')
     parser.add_argument('-s', '--noise_seed', type=int, default=111, help='Noise seed for randomness.')
+    parser.add_argument('-r', '--resolution', type=int, default=1024, help='Output resolution.')
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
-    generate_sample(args.model_name, args.output_directory, args.latent_space_type, args.num_samples, args.noise_seed)
+    generate_sample(args.model_name, args.output_directory, args.latent_space_type, args.num_samples, args.noise_seed,
+                    args.resolution)
 
 
     # # for linear interpolation along directons
