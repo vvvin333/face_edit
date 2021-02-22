@@ -1,4 +1,4 @@
-## Face_turns
+## Face_editting
 Experiments with face editting along axis in latent space with StyleGAN &mdash;
 I reconstructed stylegan`s work from several repositories for generated and real images, combine them, tried to [find pitch_boundary](https://colab.research.google.com/drive/1xBtH-c1hmhoZ6X8KIpxyYB1li3x38ipE?usp=sharing)(for pitch-axis) from several photos with my 'by-eye' scores. 
 Added scripts for generating faces of persons that do not exist and interpolating with params in latent space. 
@@ -24,6 +24,9 @@ dlib <br>
 opencv <br>
 imutils <br>
 torch <br>
+
+## Python notebook:
+https://colab.research.google.com/drive/1LoQtE8UJfICMa4_bCernbjCcC784P2kw?usp=sharing
 
 ## Instructions:
 1) [download pre-trained stylegan_ffhq-generator model](https://www.dropbox.com/s/qyv37eaobnow7fu/stylegan_ffhq.pth?dl=1),
