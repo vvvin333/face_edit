@@ -35,9 +35,9 @@ python generate_photo.py --num_samples=4 --noise_seed=1 --resolution=1024
 ```
 3) edit faces in latent space with params (one can change each parameter in params.json within (-3, 3)): 
 ```
-python manipulate_photo_with_params.py --latent_file='latents/sample.npy' --params_file='params.json' --resolution=1024
+python manipulate_photo_with_params.py --latent_file='latents/sample_base.npy' --params_file='params.json' --resolution=1024
 ```
 4) generate linear interpolations in latent space with bound parameters from params.json
 ```
-python linear_interpolations.py --latent_file='latents/sample.npy' --params_file='params.json' --num_steps=6  --resolution=1024 --show_interpolations=False
+python linear_interpolations.py --latent_file='latents/sample_base.npy' --params_file='params.json' --num_steps=6  --resolution=1024 --show_interpolations=False
 ```
