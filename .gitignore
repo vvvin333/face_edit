@@ -1,5 +1,5 @@
 /.idea
 /cache
 **/__pycache__
-/models
+/models/pretrain
 /raw_images
