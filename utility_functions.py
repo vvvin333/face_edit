@@ -164,7 +164,7 @@ def generating_common_final(latent_codes, image_file_name, latent_file_name, gen
     file_name = os.path.join(images_output_directory, image_file_name)
     cv2.imwrite(file_name, images)
     print(file_name, 'saved')
-    cv2.imshow(image_file_name, images)
+    cv2.imshow(image_file_name, cv2.resize(images, (num_samples*300, 300)))
     cv2.waitKey()
     cv2.destroyAllWindows()
 

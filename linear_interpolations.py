@@ -13,7 +13,7 @@ def parse_args():
     parser.add_argument('-p', '--params_file', type=str, default='params.json', help='Input json file with params.')
     parser.add_argument('-n', '--num_steps', type=int, default=6, help='Steps number for linear interpolations.')
     parser.add_argument('-t', '--latent_space_type', type=str, default='W', help='Type of latent vector (Z or W).')
-    parser.add_argument('-r', '--resolution', type=int, default=256, help='Output resolution.')
+    parser.add_argument('-r', '--resolution', type=int, default=1024, help='Output resolution.')
     parser.add_argument('-s', '--show_interpolations', type=str, default='false', help='If show interpolation table.')
     return parser.parse_args()
 
