@@ -31,7 +31,7 @@ https://colab.research.google.com/drive/1LoQtE8UJfICMa4_bCernbjCcC784P2kw?usp=sh
 ## Instructions:
 1) [download pre-trained stylegan_ffhq-generator model](https://www.dropbox.com/s/qyv37eaobnow7fu/stylegan_ffhq.pth?dl=1),
 [pre-trained stylegan_celebahq-generator model](https://www.dropbox.com/s/nmo2g3u0qt7x70m/stylegan_celebahq.pth?dl=1),
- and [pre-trained pggan_celebahq-generator model](https://www.dropbox.com/s/t74z87pk3cf8ny7/pggan_celebahq.pth?dl=1),
+ or [pre-trained pggan_celebahq-generator model](https://www.dropbox.com/s/t74z87pk3cf8ny7/pggan_celebahq.pth?dl=1),
  to the models/pretrain folder.
 2) generate faces of persons (1-4 batch!) that do not exist:
 ```
